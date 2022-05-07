@@ -53,10 +53,6 @@ repositories {
         name = "CraftTweaker Maven"
         url = "https://maven.blamejared.com/"
     }
-  maven {
-        name = "Hwyla maven"
-        url "http://tehnut.info/maven"
-    }
 }
 
 
@@ -69,7 +65,6 @@ dependencies {
     compile fileTree(include: ["*.jar"], dir: "libs")
     deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
 
-    deobfProvided "mcp.mobius.waila:Hwyla:${HWYLA_version}_${mc_version}"
     deobfProvided "CraftTweaker2:CraftTweaker2-MC${strippedVersion}-Main:${crafttweaker_version}"
     ///compile "mezz.jei:jei_${mc_version}:${jei_version}"
 

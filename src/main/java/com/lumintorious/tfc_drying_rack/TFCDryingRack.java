@@ -15,8 +15,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class TFCDryingRack
 {
     public static final String MODID = "tfc_drying_rack";
-    public static final String NAME = "TFC Drying Rack";
-    public static final String VERSION = "1.0";
+    public static final String NAME = "TFC:TFF Drying Racks";
+    public static final String VERSION = "2.0";
+    public static final String DEPENDENCIES = "required-after:tfc";
 
     @SidedProxy(clientSide = "com.lumintorious.tfc_drying_rack.proxy.ClientProxy", serverSide = "com.lumintorious.tfc_drying_rack.proxy.CommonProxy")
 	public static CommonProxy proxy;
@@ -30,11 +31,11 @@ public class TFCDryingRack
     	
     }
 
+/*
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-//    	System.exit(0);
     	DryingRackRecipeHandler.init();
     }
-    
+*/    
 }

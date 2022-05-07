@@ -29,19 +29,19 @@ public class DryingRackConfig {
 	    {
 	    	 @Config.Comment("If true, you can dry leaves to get thatch.")
 	         @Config.LangKey("config." + TFCDryingRack.MODID + ".general.thatchFromLeaves")
-	         public boolean thatchFromLeaves = true;
+	         public boolean thatchFromLeaves = false;
 	    	 
 	    	 @Config.Comment("If true, you can dry saltpeter powder to get salt.")
 	         @Config.LangKey("config." + TFCDryingRack.MODID + ".general.saltFromSaltPeter")
-	         public boolean saltFromSaltPeter = true;
+	         public boolean saltFromSaltPeter = false;
 	    	
 	    	 @Config.Comment("If true, recipes for drying vegetables to get seeds are added.")
 	         @Config.LangKey("config." + TFCDryingRack.MODID + ".general.seedsFromVegetables")
-	         public boolean seedsFromVegetables = true;
+	         public boolean seedsFromVegetables = false;
 	    	 
 	    	 @Config.Comment("If true, flowers are dried for their dye instead of crushed in the quern.")
 	         @Config.LangKey("config." + TFCDryingRack.MODID + ".general.driedFlowers")
-	         public boolean driedFlowers = true;
+	         public boolean driedFlowers = false;
 	    	 
 	    	 @Config.Comment("If true, dyes MUST be used in water for them to work. They are dry dust, so you can't just throw it on the glass ;)")
 	         @Config.LangKey("config." + TFCDryingRack.MODID + ".general.dyesNeedWater")
