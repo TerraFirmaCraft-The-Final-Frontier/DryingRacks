@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "tfc_drying_rack:drying_rack" }
-    }
+  "variants": {
+    "normal": {"model": "tfc_drying_rack:drying_rack"}
+  }
 }

@@ -1,16 +1,16 @@
 [
-{
-  "modid": "tfc_drying_rack",
-  "name": "TFC:TFF Drying Racks",
-  "description": "Fork of TFC Drying Racks for usage in TerraFirmaCraft: The Final Frontier.",
-  "version": "2.0.0",
-  "mcversion": "1.12.2",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["Lylythii", "Lumintorious"],
-  "credits": "",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+  {
+    "modid": "tfc_drying_rack",
+    "name": "TFC:TFF Drying Racks",
+    "description": "Fork of TFC Drying Racks for usage in TerraFirmaCraft: The Final Frontier.",
+    "version": "2.0.0",
+    "mcversion": "1.12.2",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["ACGaming", "Lylythii", "Lumintorious"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]
