@@ -35,10 +35,4 @@ public class BlockRegistry
         DRYING_RACK = register(new BlockRack("drying_rack"));
         event.getRegistry().registerAll(BLOCKS.toArray(new Block[0]));
     }
-
-    //@SubscribeEvent
-    //public static void registerItems(RegistryEvent.Register<Item> event)
-    //{
-    //    event.getRegistry().registerAll(ITEM_BLOCKS.toArray(new Item[0]));
-    //}
 }

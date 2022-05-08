@@ -17,7 +17,6 @@ public class ItemRegistry
     public static final List<Item> ITEMS = new ArrayList<>();
 
     @SubscribeEvent
-//	@SideOnly(Side.CLIENT)
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
 
@@ -39,7 +38,6 @@ public class ItemRegistry
         return item;
     }
 
-    //	@SideOnly(Side.CLIENT)
     public static void registerModel(Item item, String id)
     {
         if (item instanceof ItemBase)
