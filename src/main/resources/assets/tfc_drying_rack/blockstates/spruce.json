@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "tfc_drying_rack:drying_rack",
+    "textures": {
+      "particle": "tfc:blocks/wood/log/spruce",
+      "propeller_block": "tfc:blocks/wood/log/spruce",
+      "top": "tfc:blocks/wood/planks/spruce"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

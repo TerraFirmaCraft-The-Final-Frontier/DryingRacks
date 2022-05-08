@@ -1,5 +1,7 @@
 package com.lumintorious.tfc_drying_rack.objects.rack;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -23,7 +25,7 @@ import net.dries007.tfc.util.calendar.CalendarTFC;
 public class TileEntityRack extends TEInventory implements ITickable
 {
     public static final int ID = 1;
-    public static final String NAME = "tile_entity_drying_rack";
+    public static final String NAME = "drying_rack";
     private ItemStack last = new ItemStack(Items.AIR);
     private DryingRackRecipe recipe = null;
     private long dueDate = -1;
@@ -39,6 +41,7 @@ public class TileEntityRack extends TEInventory implements ITickable
         return new TextComponentString(I18n.format(NAME));
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound getTileData()
     {
@@ -90,23 +93,9 @@ public class TileEntityRack extends TEInventory implements ITickable
                             this.dueDate = currentHours + (long) recipe.time;
                         }
                     }
-
                 }
             }
-
-
         }
-
-//		if(!world.isRemote) {
-//			Month month = CalendarTFC.CALENDAR_TIME.getMonthOfYear();
-//			int hour = CalendarTFC.CALENDAR_TIME.getHourOfDay();
-//			int minute = CalendarTFC.CALENDAR_TIME.getMinuteOfHour();
-//			if(hour == 12 && minute == 0) {
-//				if(month.ordinal() > 3 && month.ordinal() < 11) {
-//					updateSummer();
-//				}
-//			}
-//		}
     }
 
     @Override

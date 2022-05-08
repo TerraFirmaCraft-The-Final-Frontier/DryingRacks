@@ -1,6 +1,14 @@
 package com.lumintorious.tfc_drying_rack.objects.rack;
 
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,30 +21,46 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.lumintorious.tfc_drying_rack.objects.base.BlockBase;
 import net.dries007.tfc.api.capability.size.IItemSize;
 import net.dries007.tfc.api.capability.size.Size;
 import net.dries007.tfc.api.capability.size.Weight;
-import net.dries007.tfc.objects.CreativeTabsTFC;
+import net.dries007.tfc.api.types.Tree;
 import net.dries007.tfc.objects.blocks.BlocksTFC;
 import net.dries007.tfc.objects.te.TEPlacedItemFlat;
 
-public class BlockRack extends BlockBase implements ITileEntityProvider, IItemSize
+public class BlockRack extends Block implements ITileEntityProvider, IItemSize
 {
-    public BlockRack(String registryName)
+    private static final Map<Tree, BlockRack> MAP = new HashMap<>();
+
+    public Tree wood;
+
+    public BlockRack(Tree wood)
     {
-        super(registryName, Material.CACTUS);
-        this.setCreativeTab(CreativeTabsTFC.CT_MISC);
-        this.setHardness(0.3f);
+        super(Material.WOOD, MapColor.AIR);
+        if (MAP.put(wood, this) != null) throw new IllegalStateException("There can only be one.");
+        this.wood = wood;
+        setSoundType(SoundType.WOOD);
+        setHarvestLevel("axe", 0);
+        setHardness(0.5f);
+        setResistance(3f);
+    }
+
+    @Nonnull
+    @Override
+    public Size getSize(@Nonnull ItemStack stack)
+    {
+        return Size.LARGE;
+    }
+
+    @Nonnull
+    @Override
+    public Weight getWeight(@Nonnull ItemStack stack)
+    {
+        return Weight.MEDIUM;
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
-        return new TileEntityRack();
-    }
-
-    @Override
+    @SuppressWarnings("deprecation")
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
@@ -73,20 +97,22 @@ public class BlockRack extends BlockBase implements ITileEntityProvider, IItemSi
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
     {
         return side == EnumFacing.UP;
     }
 
     @Override
-    public Size getSize(ItemStack arg0)
+    public boolean hasTileEntity(IBlockState state)
     {
-        return Size.LARGE;
+        return true;
     }
 
+    @Nullable
     @Override
-    public Weight getWeight(ItemStack arg0)
+    public TileEntity createNewTileEntity(World worldIn, int meta)
     {
-        return Weight.MEDIUM;
+        return new TileEntityRack();
     }
 }

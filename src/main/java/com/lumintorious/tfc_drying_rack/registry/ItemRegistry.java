@@ -1,52 +1,31 @@
 package com.lumintorious.tfc_drying_rack.registry;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import com.lumintorious.tfc_drying_rack.TFCDryingRack;
-import com.lumintorious.tfc_drying_rack.objects.base.ItemBase;
 
 @Mod.EventBusSubscriber(modid = TFCDryingRack.MODID)
-public class ItemRegistry
+@GameRegistry.ObjectHolder(TFCDryingRack.MODID)
+public final class ItemRegistry
 {
-    public static final List<Item> ITEMS = new ArrayList<>();
-
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
-
-        event.getRegistry().registerAll(ITEMS.toArray(new Item[0]));
-        for (Item item : ITEMS)
-        {
-            registerModel(item, "inventory");
-        }
-        event.getRegistry().registerAll(BlockRegistry.ITEM_BLOCKS.toArray(new Item[0]));
-        for (Item item : BlockRegistry.ITEM_BLOCKS)
-        {
-            registerModel(item, "inventory");
-        }
+        IForgeRegistry<Item> r = event.getRegistry();
+        BlockRegistry.getAllNormalItemBlocks().forEach(x -> registerItemBlock(r, x));
     }
 
-    public static Item register(Item item)
+    @SuppressWarnings("ConstantConditions")
+    private static void registerItemBlock(IForgeRegistry<Item> r, ItemBlock item)
     {
-        ITEMS.add(item);
-        return item;
-    }
-
-    public static void registerModel(Item item, String id)
-    {
-        if (item instanceof ItemBase)
-        {
-            ((ItemBase) item).registerModel(id);
-        }
-        else
-        {
-            TFCDryingRack.proxy.registerItemRenderer(item, 0, id);
-        }
+        item.setRegistryName(item.getBlock().getRegistryName());
+        item.setCreativeTab(item.getBlock().getCreativeTab());
+        r.register(item);
     }
 }
