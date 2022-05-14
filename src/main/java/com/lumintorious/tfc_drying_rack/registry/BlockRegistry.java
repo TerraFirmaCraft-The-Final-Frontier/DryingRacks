@@ -14,8 +14,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 import com.lumintorious.tfc_drying_rack.TFCDryingRack;
 import com.lumintorious.tfc_drying_rack.objects.rack.BlockRack;
+import com.lumintorious.tfc_drying_rack.objects.rack.BlockRackMetal;
 import com.lumintorious.tfc_drying_rack.objects.rack.TileEntityRack;
+import com.lumintorious.tfc_drying_rack.objects.rack.TileEntityRackMetal;
 import net.dries007.tfc.api.registries.TFCRegistries;
+import net.dries007.tfc.api.types.Metal;
 import net.dries007.tfc.api.types.Tree;
 import net.dries007.tfc.objects.CreativeTabsTFC;
 import net.dries007.tfc.objects.items.itemblock.ItemBlockTFC;
@@ -27,6 +30,7 @@ public final class BlockRegistry
 {
     private static ImmutableList<ItemBlock> allNormalItemBlocks;
     private static ImmutableList<BlockRack> allDryingRackBlocks;
+    private static ImmutableList<BlockRackMetal> allDryingRackMetalBlocks;
 
     public static ImmutableList<ItemBlock> getAllNormalItemBlocks()
     {
@@ -38,6 +42,11 @@ public final class BlockRegistry
         return allDryingRackBlocks;
     }
 
+    public static ImmutableList<BlockRackMetal> getAllDryingRackMetalBlocks()
+    {
+        return allDryingRackMetalBlocks;
+    }
+
     @SubscribeEvent
     @SuppressWarnings("ConstantConditions")
     public static void registerBlocks(RegistryEvent.Register<Block> event)
@@ -46,17 +55,31 @@ public final class BlockRegistry
 
         Builder<ItemBlock> normalItemBlocks = ImmutableList.builder();
         Builder<BlockRack> dryingRacks = ImmutableList.builder();
+        Builder<BlockRackMetal> dryingRacksMetal = ImmutableList.builder();
 
         for (Tree wood : TFCRegistries.TREES.getValuesCollection())
         {
             dryingRacks.add(register(r, wood.getRegistryName().getPath(), new BlockRack(wood), CreativeTabsTFC.CT_MISC));
         }
 
+        for (Metal metal : TFCRegistries.METALS.getValuesCollection())
+        {
+            if (!metal.getRegistryName().getPath().contains("unknown"))
+            {
+                dryingRacksMetal.add(register(r, metal.getRegistryName().getPath(), new BlockRackMetal(metal), CreativeTabsTFC.CT_MISC));
+            }
+        }
+
         allDryingRackBlocks = dryingRacks.build();
         allDryingRackBlocks.forEach(x -> normalItemBlocks.add(new ItemBlockTFC(x)));
+
+        allDryingRackMetalBlocks = dryingRacksMetal.build();
+        allDryingRackMetalBlocks.forEach(x -> normalItemBlocks.add(new ItemBlockTFC(x)));
+
         allNormalItemBlocks = normalItemBlocks.build();
 
         register(TileEntityRack.class, "drying_rack");
+        register(TileEntityRackMetal.class, "drying_rack_metal");
     }
 
     private static <T extends Block> T register(IForgeRegistry<Block> r, String name, T block, CreativeTabs ct)

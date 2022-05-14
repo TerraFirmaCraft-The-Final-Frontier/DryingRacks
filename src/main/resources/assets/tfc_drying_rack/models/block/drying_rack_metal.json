@@ -1,11 +1,5 @@
 {
   "credit": "Made with Blockbench",
-  "textures": {
-    "0": "<METAL>",
-    "1": "<PLATE>",
-    "2": "<GLASS>",
-    "particle": "<METAL>"
-  },
   "elements": [
     {
       "name": "Top",

@@ -50,6 +50,6 @@ public class DryingRackConfig
         @Config.RequiresMcRestart
         @Config.Comment("If true, dyes MUST be used in water for them to work. They are dry dust, so you can't just throw it on the glass ;)")
         @Config.LangKey("config." + TFCDryingRack.MODID + ".general.dyesNeedWater")
-        public boolean dyesNeedWater = true;
+        public boolean dyesNeedWater = false;
     }
 }
