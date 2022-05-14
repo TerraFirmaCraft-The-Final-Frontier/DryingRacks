@@ -5,12 +5,14 @@ import javax.annotation.Nonnull;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -24,7 +26,6 @@ import net.dries007.tfc.util.calendar.CalendarTFC;
 
 public class TileEntityRackMetal extends TEInventory implements ITickable
 {
-    public static final int ID = 1;
     public static final String NAME = "drying_rack_metal";
     private ItemStack last = new ItemStack(Items.AIR);
     private DryingRackRecipe recipe = null;
@@ -62,23 +63,28 @@ public class TileEntityRackMetal extends TEInventory implements ITickable
             {
                 TEPlacedItemFlat tile = (TEPlacedItemFlat) te;
 
+                // OVER DUE DATE
                 if (this.recipe != null && dueDate != -1 && currentHours >= dueDate)
-                { //if its over due date
+                {
                     tile.setStack(new ItemStack(Items.AIR));
                     world.setBlockState(newPos, Blocks.AIR.getDefaultState());
                     ItemStack newStack = ItemStack.EMPTY;
-                    if (Math.random() <= this.recipe.chance)
+
+                    if (Math.random() + 0.1 <= this.recipe.chance)
                     {
                         world.setBlockState(newPos, BlocksTFC.PLACED_ITEM_FLAT.getDefaultState());
                         newStack = this.recipe.output.copy();
                         newStack.setCount(Math.min(newStack.getCount() * last.getCount(), 64));
                         ((TEPlacedItemFlat) world.getTileEntity(newPos)).setStack(newStack);
                     }
+                    else
+                    {
+                        this.getWorld().playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                    }
 
                     this.last = newStack;
                     this.recipe = null;
                     this.dueDate = -1;
-
                 }
                 else
                 {
@@ -90,7 +96,7 @@ public class TileEntityRackMetal extends TEInventory implements ITickable
                         if (recipe != null)
                         {
                             this.recipe = recipe;
-                            this.dueDate = currentHours + (long) recipe.time;
+                            this.dueDate = currentHours + (long) (recipe.time * 0.8);
                         }
                     }
                 }

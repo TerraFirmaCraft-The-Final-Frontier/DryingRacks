@@ -1,8 +1,11 @@
 package com.lumintorious.tfc_drying_rack.jei;
 
+import net.minecraft.item.ItemStack;
+
 import com.lumintorious.tfc_drying_rack.TFCDryingRack;
 import com.lumintorious.tfc_drying_rack.recipes.DryingRackRecipe;
 import com.lumintorious.tfc_drying_rack.recipes.DryingRackRecipeHandler;
+import com.lumintorious.tfc_drying_rack.registry.BlockRegistry;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IModPlugin;
@@ -32,6 +35,14 @@ public class JEIPlugin implements IModPlugin
     {
         registry.handleRecipes(DryingRackRecipe.class, DryingRackRecipeWrapper::new, rackID);
         registry.addRecipes(DryingRackRecipeHandler.recipes, rackID);
-        //registry.addRecipeCatalyst(new ItemStack(BlockRegistry.DRYING_RACK), rackID);
+        for (int i = 0; i < BlockRegistry.getAllDryingRackBlocks().size(); i++)
+        {
+            registry.addRecipeCatalyst(new ItemStack(BlockRegistry.getAllDryingRackBlocks().get(i)), rackID);
+        }
+
+        for (int i = 0; i < BlockRegistry.getAllDryingRackMetalBlocks().size(); i++)
+        {
+            registry.addRecipeCatalyst(new ItemStack(BlockRegistry.getAllDryingRackMetalBlocks().get(i)), rackID);
+        }
     }
 }
